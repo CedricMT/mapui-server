@@ -2,7 +2,7 @@ module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
       name: String,
-      coee: String
+      code: String
     },
     { timestamps: true }
   );

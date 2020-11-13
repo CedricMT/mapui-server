@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "easy-express-crud-generator": "^1.4.9",
     "express": "^4.17.1",
     "mongoose": "^5.10.13"
   },

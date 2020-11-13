@@ -1,19 +1,47 @@
-// Import the mongoose module
-var mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+// const cors = require("cors");
 
-// Set up default mongoose connection
-var dbName = 'mapuidbooo';
-var mongoDB = 'mongodb://localhost:7017/' + dbName;
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const app = express();
 
-// Get the default connection
-var db = mongoose.connection;
+// var corsOptions = {
+//   origin: "http://localhost:3000"
+// };
 
-// Handle db connection events
-db.on('error', err => {
-    console.error('MongoDB connection error: ' + err);
+// app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const db = require("./models/index.js");
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to maPUI application." });
 });
 
-db.on('open', () => {
-    console.log('Successfully connected to database: ' + dbName + '.');
+require("./routes/patient.routes.js")(app);
+require("./routes/doctor.routes.js")(app);
+require("./routes/drug.routes.js")(app);
+require("./routes/treatment.routes.js")(app);
+
+// set port, listen for requests
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
