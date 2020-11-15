@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./app/models/index.js");
+const db = require("./server/models/index.js");
 
 db.mongoose
   .connect(db.url, {
@@ -32,10 +32,10 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to maPUI application." });
 });
 
-require("./app/routes/patient.routes.js")(app);
-require("./app/routes/doctor.routes.js")(app);
-require("./app/routes/drug.routes.js")(app);
-require("./app/routes/treatment.routes.js")(app);
+require("./server/routes/patient.routes.js")(app);
+require("./server/routes/doctor.routes.js")(app);
+require("./server/routes/drug.routes.js")(app);
+require("./server/routes/treatment.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
