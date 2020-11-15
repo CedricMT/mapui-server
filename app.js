@@ -1,14 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 
-// var corsOptions = {
-//   origin: "http://localhost:3000"
-// };
-
-// app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -45,5 +41,5 @@ require("./app/routes/treatment.routes.js")(app);
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 app.listen(PORT, HOST, () => {
-  console.log(`Server is running on ${HOST}:${PORT}.`);
+  console.log(`Server is running on ${HOST}:${PORT}`);
 });
