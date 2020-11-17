@@ -1,3 +1,4 @@
+const { query } = require("express");
 const db = require("../models/index.js");
 const Drug = db.drug;
 
@@ -53,6 +54,27 @@ exports.findOne = (req, res) => {
         .send({ message: "Error retrieving Drug with id=" + id });
     });
 };
+
+// Find a multiple Drug with an ids array
+exports.findMultipleId = (req, res) => {
+  const filter = req.query || {};
+
+  if (!filter.ids) {
+    throw new Error("Cannot request db for Drug, ids params is missing.")
+  }
+
+  Drug.find().where('_id').in(filter.ids)
+    .then(data => {
+      console.log(data);
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving drugs."
+      });
+    });
+}
 
 // Update a Drug by the id in the request
 exports.update = (req, res) => {

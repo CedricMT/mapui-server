@@ -10,7 +10,10 @@ module.exports = app => {
   router.get("/", drugController.findAll);
 
   // Retrieve a single Drug with id
-  router.get("/:id", drugController.findOne);
+  router.get("/id/:id", drugController.findOne);
+
+  // Retrieve multiple Drug with ids
+  router.get("/ids", drugController.findMultipleId);
 
   // Update a Drug with id
   router.put("/:id", drugController.update);

@@ -54,6 +54,27 @@ exports.findOne = (req, res) => {
     });
 };
 
+// Find a multiple Treatment with an ids array
+exports.findMultipleId = (req, res) => {
+  const filter = req.query || {};
+
+  if (!filter.ids) {
+    throw new Error("Cannot request db for Treatment, ids params is missing.")
+  }
+
+  Treatment.find().where('_id').in(filter.ids)
+    .then(data => {
+      console.log(data);
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving treatment."
+      });
+    });
+}
+
 // Update a Treatment by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {

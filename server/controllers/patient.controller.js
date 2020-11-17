@@ -54,6 +54,27 @@ exports.findOne = (req, res) => {
     });
 };
 
+// Find a multiple Patient with an ids array
+exports.findMultipleId = (req, res) => {
+  const filter = req.query || {};
+
+  if (!filter.ids) {
+    throw new Error("Cannot request db for Patient, ids params is missing.")
+  }
+
+  Patient.find().where('_id').in(filter.ids)
+    .then(data => {
+      console.log(data);
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving patient."
+      });
+    });
+}
+
 // Update a Patient by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {

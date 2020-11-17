@@ -10,7 +10,10 @@ module.exports = app => {
   router.get("/", treatmentController.findAll);
 
   // Retrieve a single Treatment with id
-  router.get("/:id", treatmentController.findOne);
+  router.get("/id/:id", treatmentController.findOne);
+
+  // Retrieve multiple Treatment with ids
+  router.get("/ids", treatmentController.findMultipleId);
 
   // Update a Treatment with id
   router.put("/:id", treatmentController.update);
