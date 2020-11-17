@@ -24,7 +24,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   const filter = req.query || {};
 
-  Treatment.find(filter)
+  Treatment.find(filter).populate('doctor')
     .then(data => {
       console.log(data);
       res.send(data);
