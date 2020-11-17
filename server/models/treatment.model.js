@@ -4,7 +4,10 @@ module.exports = mongoose => {
       start: Date,
       end: Date,
       text: String,
-      doctor: mongoose.Schema.Types.ObjectId
+      doctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'doctor'
+      }
     },
     { timestamps: true }
   );

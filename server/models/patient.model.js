@@ -5,8 +5,14 @@ module.exports = mongoose => {
       lastName: String,
       age: Number,
       sex: String,
-      drugs: [mongoose.Schema.Types.ObjectId],
-      treatments: [mongoose.Schema.Types.ObjectId]
+      drugs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'drug'
+      }],
+      treatments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'treatment'
+      }]
     },
     { timestamps: true }
   );
