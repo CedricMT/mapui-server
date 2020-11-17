@@ -22,9 +22,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Treatments from the database.
 exports.findAll = (req, res) => {
-  var condition = {};
+  const filter = req.query || {};
 
-  Treatment.find(condition)
+  Treatment.find(filter)
     .then(data => {
       console.log(data);
       res.send(data);

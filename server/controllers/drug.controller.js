@@ -4,7 +4,6 @@ const Drug = db.drug;
 // Create and Save a new Drug
 exports.create = (req, res) => {
   // Create a Drug
-  console.log(req.body);
   const drug = new Drug(req.body);
 
   // Save Drug in the database
@@ -23,9 +22,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Drugs from the database.
 exports.findAll = (req, res) => {
-  var condition = {};
+  const filter = req.query || {};
 
-  Drug.find(condition)
+  Drug.find(filter)
     .then(data => {
       console.log(data);
       res.send(data);
