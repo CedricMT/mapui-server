@@ -62,7 +62,7 @@ exports.findMultipleId = (req, res) => {
     throw new Error("Cannot request db for Treatment, ids params is missing.")
   }
 
-  Treatment.find().where('_id').in(filter.ids)
+  Treatment.find().where('_id').in(filter.ids).populate('doctor')
     .then(data => {
       console.log(data);
       res.send(data);
